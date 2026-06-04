@@ -1,2 +1,5 @@
 .venv
+.env
 proyecto/README.md
+__pycache__/
+data/private/

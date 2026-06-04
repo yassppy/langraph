@@ -1,9 +1,9 @@
-# langraph
+# Inteligencia artificial aplicada
 
-Aprendiendo langraph para automatizar tareas complejas.
+Aprendiendo langchain y langraph para automatizar tareas complejas.
 
-Pasos:
- - Descargar https://lmstudio.ai
+## Pasos:
+ - Descargar ``https://lmstudio.ai``
  - Propiedades y marca en Desbloquear en la parte de Seguridad en la pestaña de General, aplicar y aceptas.
  - Ahora si ejecutar como administrador y a todo siguiente.
  - En las opciones vas a desmarcar la opción de Start local LLM service on login.
@@ -12,5 +12,9 @@ Pasos:
  - Te diriges a la pestaña de ``developer`` y activas el status: Stopped
  - Listo
 
-Dependencias necesarias:
-- uv add langgraph langchain-openai
+## Dependencias necesarias:
+- ``uv add langgraph langchain-openai``
+
+## Recursos
+- Anthropic: ``https://anthropic.skilljar.com/``
+- Doc gemini api: `https://ai.google.dev/gemini-api/docs/migrate?hl=es-419`

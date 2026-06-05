@@ -58,4 +58,4 @@ Se utiliza en APIs, automatizaciones como en N8N, productos con IA.
 
 ## Function calling:
 
-Es cuando se llama a una función específica en lugar de pedirle a la IA que responda directamente. Permite que la IA realice tareas específicas y devuelva resultados estructurados.
+Es una forma de darle al modelo acceso a nuestras propias funciones y que la IA funcione como un orquestador. La IA puede elegir entre varias funciones disponibles y ejecutar la que mejor se ajuste al problema.

@@ -62,7 +62,7 @@ def execute_tool(name: str, arguments: dict) -> str:
 
 
 def run_chat_with_tools(user_message: str) -> str:
-    # 1️⃣ Primera llamada — el modelo decide si usar una tool
+    # 1 Primera llamada — el modelo decide si usar una tool
     response = call_ai(
         message=user_message,
         system="Eres un asistente útil que puede usar herramientas para responder preguntas.",
@@ -71,7 +71,7 @@ def run_chat_with_tools(user_message: str) -> str:
 
     part = response.candidates[0].content.parts[0]
 
-    # 2️⃣ El modelo pidió usar una función
+    # 2 El modelo pidió usar una función
     if part.function_call:
         fn_name = part.function_call.name
         fn_args = dict(part.function_call.args)
@@ -80,7 +80,7 @@ def run_chat_with_tools(user_message: str) -> str:
         tool_result = execute_tool(fn_name, fn_args)
         print(f"📦 Resultado: {tool_result}")
 
-        # 3️⃣ Segunda llamada — le devolvemos el resultado al modelo
+        # 3 Segunda llamada — le devolvemos el resultado al modelo
         response2 = call_ai(
             message=user_message,
             system="Eres un asistente útil que puede usar herramientas para responder preguntas.",

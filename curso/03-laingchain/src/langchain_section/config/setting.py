@@ -11,7 +11,7 @@ class LangchainSettings(BaseSettings):
     GEMINI_API_KEY: str = str(getenv("GEMINI_API_KEY"))
 
     # Modelos e hiperparámetros actualizados según documentación
-    CHAT_MODEL: str = "gemini-3.5-flash"
+    CHAT_MODEL: str = "gemini-3.1-flash-lite"
     EMBEDDING_MODEL: str = "text-embedding-004"
 
     # ¡OJO!: La doc dice que para Gemini 3+, la temperatura recomendada es 1.0

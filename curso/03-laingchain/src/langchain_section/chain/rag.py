@@ -1,0 +1,53 @@
+from langchain_community.vectorstores import Chroma
+from langchain_core.documents import Document
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import Runnable, RunnablePassthrough
+from langchain_core.vectorstores import VectorStoreRetriever
+from src.langchain_section.config.setting import setting
+from src.langchain_section.core.llm import get_llm
+
+
+def format_docs(docs: list[Document]) -> str:
+    """Convertir lista en documentos"""
+    return "\n\n--\n\n".join(
+        [
+            f"[Fuente: {doc.metadata.get('source', 'desconocido')},"
+            f"Página: {doc.metadata.get('page', 'N/A')}]\n"
+            f"\n\n{doc.page_content}"
+            for doc in docs
+        ]
+    )
+
+
+def build_rag_chain(
+    vectorstore: Chroma,
+) -> tuple[Runnable, VectorStoreRetriever]:  # ← corregido
+    """Pipeline RAG con LCEL"""
+    retriever = vectorstore.as_retriever(
+        search_type="similarity", search_kwargs={"k": setting.TOP_K_RESULTS}
+    )
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                """Eres un asistente que responde preguntas
+                basándote ÚNICAMENTE en el contexto proporcionado.
+                Contexto recuperado de los documentos:
+                {context}
+                Instrucciones:
+                - Si la respuesta está en el contexto, respóndela con precisión.
+                - Si no está, di: "No encontré esa información en los documentos."
+                - Cita la fuente cuando sea posible.
+                - No inventes ni supongas información.""",
+            ),
+            ("human", "{question}"),
+        ]
+    )
+    rag_chain = (
+        {"context": retriever | format_docs, "question": RunnablePassthrough()}
+        | prompt
+        | get_llm(temperature=setting.LOW_TEMPERATURE)
+        | StrOutputParser()
+    )
+    return rag_chain, retriever

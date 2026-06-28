@@ -12,7 +12,7 @@ class LangchainSettings(BaseSettings):
 
     # Modelos e hiperparámetros actualizados según documentación
     CHAT_MODEL: str = "gemini-3.1-flash-lite"
-    EMBEDDING_MODEL: str = "text-embedding-004"
+    EMBEDDING_MODEL: str = "gemini-embedding-001"
 
     # ¡OJO!: La doc dice que para Gemini 3+, la temperatura recomendada es 1.0
     DEFAULT_TEMPERATURE: float = 1.0
@@ -26,7 +26,7 @@ class LangchainSettings(BaseSettings):
     # Configuración de Chunks
     CHUNK_SIZE: int = 500
     CHUNK_OVERLAP: int = 50
-    TOP_K_RESULTS: int = 3
+    TOP_K_RESULTS: int = 5
 
 
 setting = LangchainSettings()
